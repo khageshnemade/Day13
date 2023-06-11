@@ -9,13 +9,13 @@ async function addRecord (req,res){
   let inputDoc={
     message:req.query.message|| "default",
   }
-  await messageColl.insetOne(inputDoc);
+  await messageColl.insertOne(inputDoc);
   await client.close();
    // string response
   // res.send("record added")
 
   // json response :: preferred
-  resizeBy.json({opr:"success"});
+  res.json({opr:"success"});
 
 
 }
@@ -28,8 +28,9 @@ async function findAll(req,res){
     let list=await messageColl.find().toArray();
     await client.close();
     res.json(list);
+    // res.send("Record Successfully Inserted");
 }
 
-app.get("/addrecord",addrecord);
-app.get("/findAll",findAllMessage);
-app.listen(4000);
+app.get("/addrecord",addRecord);
+app.get("/findAll",findAll);
+app.listen(4000); 
